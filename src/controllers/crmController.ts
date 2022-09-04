@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 import { ContactSchema } from '../models/crmModel';
 
 const Contact = mongoose.model('Contact', ContactSchema);
@@ -42,7 +42,7 @@ export const updateContact = (req, res) => {
 }
 
 export const deleteContact = (req, res) => {
-    Contact.remove({ _id: req.params.contactId }, (err, contact) => {
+    Contact.remove({ _id: req.params.contactId }, (err) => {
         if (err) {
             res.send(err);
         }

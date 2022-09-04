@@ -1,6 +1,12 @@
 # Environment variables
 .env
 
+# Code editors
+.vscode
+
+# Build
+dist
+
 # Node
 node_modules
 package-lock.json
