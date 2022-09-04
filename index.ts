@@ -38,6 +38,23 @@ app.use(bodyParser.json());
 
 routes(app);
 
+// interface Name {
+//     firstName: string;
+// }
+
+// Generics
+function createName<T>(name: T): T {
+    return name;
+}
+
+// // Function with interface
+// const createName = (name: Name): string => {
+//     return `Hello, ${name.firstName}`;
+// };
+
+// let myName = {firstName: 'Stiven'};
+let myName = createName<string>('Stiven');
+
 // serving static files
 app.use(express.static('public'));
 
@@ -45,6 +62,7 @@ app.get('/', (req, res) =>
     res.send(messenger.printMessage())
 );
 
-app.listen(Settings.PORT, () =>
-    console.log(messenger.printMessage())
-);
+app.listen(Settings.PORT, () => {
+    console.log(createName(myName));
+    console.log(messenger.printMessage());
+});
