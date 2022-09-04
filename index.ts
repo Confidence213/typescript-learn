@@ -55,11 +55,27 @@ function createName<T>(name: T): T {
 // let myName = {firstName: 'Stiven'};
 let myName = createName<string>('Stiven');
 
+// Declaration merging
+interface Warriors {
+    weapon: string;
+    skills: number;
+}
+
+interface Warriors {
+    name: string;
+}
+
+let ninja: Warriors = {
+    weapon: 'Shuriken',
+    skills: 5,
+    name: 'Stiven'
+};
+
 // serving static files
 app.use(express.static('public'));
 
 app.get('/', (req, res) =>
-    res.send(messenger.printMessage())
+    res.send(ninja)
 );
 
 app.listen(Settings.PORT, () => {
