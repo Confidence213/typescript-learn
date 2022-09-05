@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "ignorePatterns": [],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "trailingComma": "es5",
+            "singleQuote": true,
+            "jsxSingleQuote": true,
+            "printWidth": 100,
+            "tabWidth": 2,
+            "semi": true,
+            "endOfLine": "auto"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,32 +1,41 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
+
+import { Request, Response } from 'express';
+
 import routes from './src/routes/crmRoutes';
-import { Messenger } from './src/controllers/createMessage';
-import { Settings } from './settings';
+import Messenger from './src/controllers/createMessage';
+import { Settings } from './src/utils/settings';
 import { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } from './src/utils/secrets';
 
 const app = express();
 
 // Instance of our class
-let messenger = new Messenger(Settings.ENV, Settings.PORT);
+const messenger = new Messenger(Settings.ENV, Settings.PORT);
 
-const getConnectUrl = (user: string, password: string, host: string, port: number, name: string): string => {
-    return `mongodb+srv://${user}:${password}@${host}:${port}/${name}?retryWrites=true&w=majority`;
+const getConnectUrl = (
+  user: string,
+  password: string,
+  host: string,
+  port: number,
+  name: string
+): string => {
+  return `mongodb+srv://${user}:${password}@${host}:${port}/${name}?retryWrites=true&w=majority`;
 };
 
-let dbConnectionUrl: string = getConnectUrl(DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME);
+const dbConnectionUrl: string = getConnectUrl(DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME);
 
-const connectDatabase = (connectionUrl: string): any => {
-    try {
-        mongoose.connect(connectionUrl, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log('Connected to MongoDB database successfully');
-    } catch (error) {
-        console.error('Error to connect to MongoDB database');
-    }
+const connectDatabase = (connectionUrl: string): void => {
+  try {
+    mongoose.connect(connectionUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB database successfully');
+  } catch (error) {
+    console.error('Error to connect to MongoDB database');
+  }
 };
 
 // mongoose connection
@@ -44,7 +53,7 @@ routes(app);
 
 // Generics
 function createName<T>(name: T): T {
-    return name;
+  return name;
 }
 
 // // Function with interface
@@ -53,32 +62,32 @@ function createName<T>(name: T): T {
 // };
 
 // let myName = {firstName: 'Stiven'};
-let myName = createName<string>('Stiven');
+const myName = createName<string>('Stiven');
 
 // Declaration merging
 interface Warriors {
-    weapon: string;
-    skills: number;
+  weapon: string;
+  skills: number;
 }
 
 interface Warriors {
-    name: string;
+  name: string;
 }
 
-let ninja: Warriors = {
-    weapon: 'Shuriken',
-    skills: 5,
-    name: 'Stiven'
+const ninja: Warriors = {
+  weapon: 'Shuriken',
+  skills: 5,
+  name: 'Stiven',
 };
 
 // serving static files
 app.use(express.static('public'));
 
-app.get('/', (req, res) =>
-    res.send(ninja)
-);
+app.get('/', (req: Request, res: Response): void => {
+  res.send(ninja);
+});
 
-app.listen(Settings.PORT, () => {
-    console.log(createName(myName));
-    console.log(messenger.printMessage());
+app.listen(Settings.PORT, (): void => {
+  console.log(createName(myName));
+  console.log(messenger.printMessage());
 });
