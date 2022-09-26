@@ -44,3 +44,18 @@ saveInventoryItem({
   trackingNumber: 'MBP123456',
   createDate: new Date(),
 });
+
+function clone<T, U>(source: T, options: U): T {
+  const serialized = JSON.stringify(source);
+  return JSON.parse(serialized);
+}
+
+const cloned = clone(inventoryItem, { deep: true });
+
+interface KeyValuePair<TKey, TValue> {
+  Key: TKey;
+  Value: TValue;
+}
+
+const keyValue: KeyValuePair<string, number> = { Key: 'something', Value: 1234 };
+const keyValue2: KeyValuePair<number, boolean> = { Key: 1234, Value: true };
