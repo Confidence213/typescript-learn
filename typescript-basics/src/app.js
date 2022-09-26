@@ -1,4 +1,4 @@
-import inventoryStore from "./inventoryStore.js";
+import inventoryStore from './inventoryStore.js';
 
 const MainContent = () => ({
   delay: 200,
@@ -17,36 +17,36 @@ const MainContent = () => ({
           </template>
         </router>
       </div>
-    `
-  }))
+    `,
+  })),
 });
 
 const router = Vue.extend({
   data: () => ({
     currentRoute: null,
-    ViewComponent: null
+    ViewComponent: null,
   }),
   methods: {
     syncRoute() {
-      this.currentRoute = window.location.hash.replace(/^#\//, "");
-    }
+      this.currentRoute = window.location.hash.replace(/^#\//, '');
+    },
   },
   watch: {
     currentRoute() {
       this.ViewComponent = { template: `<loading />` };
 
-      const page = this.currentRoute || "inventory";
+      const page = this.currentRoute || 'inventory';
 
       import(`./${page}/${page}.js`)
-        .then(x => (this.ViewComponent = x.default))
-        .catch(err => {
+        .then((x) => (this.ViewComponent = x.default))
+        .catch((err) => {
           console.warn(err);
-          this.ViewComponent = "notFound";
+          this.ViewComponent = 'notFound';
         });
-    }
+    },
   },
   created() {
-    window.addEventListener("hashchange", this.syncRoute);
+    window.addEventListener('hashchange', this.syncRoute);
     this.syncRoute();
   },
   render(h) {
@@ -56,11 +56,11 @@ const router = Vue.extend({
       return null;
     }
 
-    return typeof vc === "string" ? this.$slots[vc] : h(this.ViewComponent);
-  }
+    return typeof vc === 'string' ? this.$slots[vc] : h(this.ViewComponent);
+  },
 });
 
-Vue.component("loading", {
+Vue.component('loading', {
   template: `
     <div class="loading">
       <strong>Loading...</strong>
@@ -70,12 +70,12 @@ Vue.component("loading", {
         </div>
       </div>
     </div>
-  `
+  `,
 });
 
 // initialize the app
 new Vue({
-  el: "#app",
+  el: '#app',
   components: { MainContent },
   template: `
     <div class="container-fluid">
@@ -83,5 +83,5 @@ new Vue({
             <h3 class="text-muted">Inventory Management System</h3>
         </div>
         <main-content />
-    </div>`
+    </div>`,
 });

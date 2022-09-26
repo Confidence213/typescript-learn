@@ -12,7 +12,9 @@
   "author": "Stiven Ramírez Arango",
   "license": "ISC",
   "devDependencies": {
+    "@types/jquery": "^3.5.14",
     "@types/node": "^18.7.21",
+    "@types/vue": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "^8.23.0",
