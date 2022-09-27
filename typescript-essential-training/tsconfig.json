@@ -2,7 +2,9 @@
     "compilerOptions": {
         "outDir": "dist",
         "target": "ES6",
-        "noEmit": true
+        "noEmit": true,
+        "allowJs": true,
+        "checkJs": true
     },
     "include": ["src/**/*", "index.ts"]
 }
