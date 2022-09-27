@@ -1,0 +1,26 @@
+{
+    "name": "typescript-essential-training",
+    "version": "1.0.0",
+    "description": "TypeScript essential training",
+    "main": "index.js",
+    "scripts": {
+        "build": "npx tsc",
+        "start": "ts-node index.ts",
+        "prod": "npm run build && node ./dist/index.js",
+        "watch": "nodemon"
+    },
+    "author": "Stiven Ramírez Arango",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^4.8.3",
+        "ts-node": "^10.9.1",
+        "nodemon": "^2.0.19",
+        "@types/node": "^18.7.21",
+        "@typescript-eslint/eslint-plugin": "^5.36.1",
+        "@typescript-eslint/parser": "^5.36.1",
+        "eslint": "^8.23.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "prettier": "^2.7.1"
+    }
+}
