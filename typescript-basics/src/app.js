@@ -1,11 +1,11 @@
 import inventoryStore from './inventoryStore.js';
 
 const MainContent = () => ({
-  delay: 200,
-  loading: { template: `<loading />` },
-  component: inventoryStore.isInitialized.then(() => ({
-    components: { router },
-    template: `
+    delay: 200,
+    loading: { template: `<loading />` },
+    component: inventoryStore.isInitialized.then(() => ({
+        components: { router },
+        template: `
       <div id="main-content">
         <router>
           <template #loading>
@@ -18,50 +18,50 @@ const MainContent = () => ({
         </router>
       </div>
     `,
-  })),
+    })),
 });
 
 const router = Vue.extend({
-  data: () => ({
-    currentRoute: null,
-    ViewComponent: null,
-  }),
-  methods: {
-    syncRoute() {
-      this.currentRoute = window.location.hash.replace(/^#\//, '');
+    data: () => ({
+        currentRoute: null,
+        ViewComponent: null,
+    }),
+    methods: {
+        syncRoute() {
+            this.currentRoute = window.location.hash.replace(/^#\//, '');
+        },
     },
-  },
-  watch: {
-    currentRoute() {
-      this.ViewComponent = { template: `<loading />` };
+    watch: {
+        currentRoute() {
+            this.ViewComponent = { template: `<loading />` };
 
-      const page = this.currentRoute || 'inventory';
+            const page = this.currentRoute || 'inventory';
 
-      import(`./${page}/${page}.js`)
-        .then((x) => (this.ViewComponent = x.default))
-        .catch((err) => {
-          console.warn(err);
-          this.ViewComponent = 'notFound';
-        });
+            import(`./${page}/${page}.js`)
+                .then((x) => (this.ViewComponent = x.default))
+                .catch((err) => {
+                    console.warn(err);
+                    this.ViewComponent = 'notFound';
+                });
+        },
     },
-  },
-  created() {
-    window.addEventListener('hashchange', this.syncRoute);
-    this.syncRoute();
-  },
-  render(h) {
-    const vc = this.ViewComponent;
+    created() {
+        window.addEventListener('hashchange', this.syncRoute);
+        this.syncRoute();
+    },
+    render(h) {
+        const vc = this.ViewComponent;
 
-    if (vc == null) {
-      return null;
-    }
+        if (vc == null) {
+            return null;
+        }
 
-    return typeof vc === 'string' ? this.$slots[vc] : h(this.ViewComponent);
-  },
+        return typeof vc === 'string' ? this.$slots[vc] : h(this.ViewComponent);
+    },
 });
 
 Vue.component('loading', {
-  template: `
+    template: `
     <div class="loading">
       <strong>Loading...</strong>
       <div class="progress">
@@ -75,9 +75,9 @@ Vue.component('loading', {
 
 // initialize the app
 new Vue({
-  el: '#app',
-  components: { MainContent },
-  template: `
+    el: '#app',
+    components: { MainContent },
+    template: `
     <div class="container-fluid">
         <div class="header clearfix">
             <h3 class="text-muted">Inventory Management System</h3>

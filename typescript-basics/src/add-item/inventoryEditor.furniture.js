@@ -1,11 +1,11 @@
 export default Vue.extend({
-  props: ["item", "category"],
-  computed: {
-    colors() {
-      return this.category.colors;
-    }
-  },
-  template: `
+    props: ['item', 'category'],
+    computed: {
+        colors() {
+            return this.category.colors;
+        },
+    },
+    template: `
       <div>
   
           <div class="col-sm-6 form-group">
@@ -34,5 +34,5 @@ export default Vue.extend({
         </div>
 
       </div>
-      `
+      `,
 });

@@ -8,28 +8,28 @@ type Cost = number | string;
 let originalCost: Cost;
 
 if (typeof originalCost == 'number') {
-  let cost: number = originalCost;
+    let cost: number = originalCost;
 } else {
-  let x = originalCost;
+    let x = originalCost;
 }
 
 enum InventoryItemType {
-  COMPUTER = 'computer',
-  FURNITURE = 'furniture',
+    COMPUTER = 'computer',
+    FURNITURE = 'furniture',
 }
 
 interface InventoryItem {
-  displayName: string;
-  inventoryType: InventoryItemType; // 'computer' | 'furniture'
-  trackingNumber: string; // readonly
-  createDate: Date;
-  originalCost?: number;
+    displayName: string;
+    inventoryType: InventoryItemType; // 'computer' | 'furniture'
+    trackingNumber: string; // readonly
+    createDate: Date;
+    originalCost?: number;
 
-  addNote?: (note: string) => string;
+    addNote?: (note: string) => string;
 }
 
 function getInventoryItem(trackingNumber: string): InventoryItem {
-  return null;
+    return null;
 }
 
 function saveInventoryItem(item: InventoryItem) {}
@@ -39,22 +39,22 @@ let inventoryItem = getInventoryItem(trackingNumber);
 inventoryItem.createDate = new Date();
 
 saveInventoryItem({
-  displayName: 'Macbook Pro 15 Retina',
-  inventoryType: InventoryItemType.COMPUTER,
-  trackingNumber: 'MBP123456',
-  createDate: new Date(),
+    displayName: 'Macbook Pro 15 Retina',
+    inventoryType: InventoryItemType.COMPUTER,
+    trackingNumber: 'MBP123456',
+    createDate: new Date(),
 });
 
 function clone<T, U>(source: T, options: U): T {
-  const serialized = JSON.stringify(source);
-  return JSON.parse(serialized);
+    const serialized = JSON.stringify(source);
+    return JSON.parse(serialized);
 }
 
 const cloned = clone(inventoryItem, { deep: true });
 
 interface KeyValuePair<TKey, TValue> {
-  Key: TKey;
-  Value: TValue;
+    Key: TKey;
+    Value: TValue;
 }
 
 const keyValue: KeyValuePair<string, number> = { Key: 'something', Value: 1234 };

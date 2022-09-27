@@ -1,65 +1,65 @@
-import inventoryStore from "../inventoryStore.js";
-import inventoryEditor from "./inventoryEditor.js";
+import inventoryStore from '../inventoryStore.js';
+import inventoryEditor from './inventoryEditor.js';
 
 export default Vue.extend({
-  components: { inventoryEditor },
-  data: () => ({
-    categories: inventoryStore.categories,
-    errors: [],
-    item: {},
-    saving: false,
-    showSavedMessage: false
-  }),
-  computed: {
-    canSubmit() {
-      return this.item && !!this.item.subCategory;
-    },
-    category() {
-      return this.categories.find(x => x.name === this.item.inventoryType) || {};
-    },
-    subCategories() {
-      return this.category.subCategories;
-    },
-    editorComponent() {
-      switch (this.item.inventoryType) {
-        case "computer":
-          return editComputer;
+    components: { inventoryEditor },
+    data: () => ({
+        categories: inventoryStore.categories,
+        errors: [],
+        item: {},
+        saving: false,
+        showSavedMessage: false,
+    }),
+    computed: {
+        canSubmit() {
+            return this.item && !!this.item.subCategory;
+        },
+        category() {
+            return this.categories.find((x) => x.name === this.item.inventoryType) || {};
+        },
+        subCategories() {
+            return this.category.subCategories;
+        },
+        editorComponent() {
+            switch (this.item.inventoryType) {
+                case 'computer':
+                    return editComputer;
 
-        case "furniture":
-          return editFurniture;
+                case 'furniture':
+                    return editFurniture;
 
-        default:
-          return null;
-      }
-    }
-  },
-  methods: {
-    onSubmit() {
-      this.saving = true;
+                default:
+                    return null;
+            }
+        },
+    },
+    methods: {
+        onSubmit() {
+            this.saving = true;
 
-      inventoryStore
-        .addItem(this.item)
-        .then(() => {
-          this.reset();
-          this.showSavedMessage = true;
-          this.saving = false;
-          setTimeout(() => (this.showSavedMessage = false), 4000);
-        })
-        .catch(errors => {
-          this.errors.splice(0, Infinity, ...errors);
-          this.saving = false;
-        });
+            inventoryStore
+                .addItem(this.item)
+                .then(() => {
+                    this.reset();
+                    this.showSavedMessage = true;
+                    this.saving = false;
+                    setTimeout(() => (this.showSavedMessage = false), 4000);
+                })
+                .catch((errors) => {
+                    this.errors.splice(0, Infinity, ...errors);
+                    this.saving = false;
+                });
+        },
+        reset() {
+            this.item = {};
+            this.errors = [];
+            this.showErrors = false;
+        },
+        hasError(field) {
+            return !!this.errors.find((x) => x.field === field);
+        },
     },
-    reset() {
-      this.item = {};
-      this.errors = [];
-      this.showErrors = false;
-    },
-    hasError(field) {
-      return !!this.errors.find(x => x.field === field);
-    }
-  },
-  template: `
+    template: `
     <div>
       <div v-if="showSavedMessage" class="alert alert-success alert-dismissible fade" role="alert">
         <button @click="showSavedMessage = false" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -141,5 +141,5 @@ export default Vue.extend({
         </form>
       </div>
     </div>
-    `
+    `,
 });

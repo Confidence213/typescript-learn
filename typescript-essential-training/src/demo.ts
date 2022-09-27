@@ -1,5 +1,6 @@
 class Contact {
-    id;
-    name;
-    birthDate;
+    id: number;
+    name: string;
+    birthDate: Date;
 }
+s;
