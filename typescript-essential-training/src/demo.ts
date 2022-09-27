@@ -3,4 +3,3 @@ class Contact {
     name: string;
     birthDate: Date;
 }
-s;
